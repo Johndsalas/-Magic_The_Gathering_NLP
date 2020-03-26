@@ -33,6 +33,8 @@ def wrangle_mtg():
     # read cards.csv into a pandas dataframe
     df = pd.read_csv('cards.csv')
 
+    return df
+
 def prepare_mtg(df):
     '''
     Prepare mtg data for analysis
