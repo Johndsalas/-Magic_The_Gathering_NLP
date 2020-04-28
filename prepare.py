@@ -3,8 +3,11 @@ import pandas as pd
 import re
 import unicodedata
 import pathlib
+
 import nltk
 from nltk.corpus import stopwords
+
+from sklearn.model_selection import train_test_split
 
 def get_preped_data():
     '''
@@ -178,3 +181,9 @@ def lemmatize(article):
     article_lemmatized = ' '.join(lemmas)
     
     return article_lemmatized
+
+def split_data(df):
+
+    train, test = train_test_split(df, train_size = .80, random_state = 123)
+
+    return train, test
