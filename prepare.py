@@ -191,11 +191,3 @@ def split_data(df):
 
     return train, test
 
-def word_soup(text):
-    '''
-    Turn text into list of words in text
-    '''
-    wnl = nltk.stem.WordNetLemmatizer()
- 
-    words = re.sub(r'[^\w\s]', '', text).split()
-    return [word for word in words]
