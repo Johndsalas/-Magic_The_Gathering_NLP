@@ -183,7 +183,19 @@ def lemmatize(article):
     return article_lemmatized
 
 def split_data(df):
+    '''
+    split data into test and train group
+    '''
 
-    train, test = train_test_split(df, train_size = .80, random_state = 123)
+    train, test = train_test_split(df, train_size = .80, random_state = 123, stratify = df.color)
 
     return train, test
+
+def word_soup(text):
+    '''
+    Turn text into list of words in text
+    '''
+    wnl = nltk.stem.WordNetLemmatizer()
+ 
+    words = re.sub(r'[^\w\s]', '', text).split()
+    return [word for word in words]
