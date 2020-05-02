@@ -3,6 +3,8 @@ import pandas as pd
 import re
 import nltk
 from nltk.corpus import stopwords
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def get_distribution(df):
     '''
@@ -30,6 +32,7 @@ def word_count(df):
     display count of each word by color in a pandas data frame
     '''
 
+    # create bag of words for all words in text and for all words in text by color
     all_words = word_soup(' '.join(df.text))
     blue_words = word_soup(' '.join(df[df.color == 'Blue'].text))
     green_words = word_soup(' '.join(df[df.color == 'Green'].text))
@@ -37,6 +40,7 @@ def word_count(df):
     white_words = word_soup(' '.join(df[df.color == 'White'].text))
     black_words = word_soup(' '.join(df[df.color == 'Black'].text))
 
+    # get value count of each bag of words
     all_freq = pd.Series(all_words).value_counts()
     blue_freq = pd.Series(blue_words).value_counts()
     green_freq = pd.Series(green_words).value_counts()
@@ -44,9 +48,23 @@ def word_count(df):
     white_freq = pd.Series(white_words).value_counts()
     black_freq = pd.Series(black_words).value_counts()
 
+    # combine value counts into one pandas data frame
     word_counts = (pd.concat([all_freq,blue_freq,green_freq,red_freq,white_freq,black_freq], axis=1, sort=True)
                 .set_axis(['all','blue','green','red','white','black'], axis=1, inplace=False)
                 .fillna(0)
                 .apply(lambda s: s.astype(int)))
 
-    return word_counts.sort_values(by='all', ascending=False).head(10)
+    # display ratio of top 20 most frequent words by color
+    (word_counts.assign(p_blue=word_counts.blue / word_counts['all'],
+                        p_green=word_counts.green / word_counts['all'],
+                        p_red=word_counts.red / word_counts['all'],
+                        p_white=word_counts.white / word_counts['all'],
+                        p_black=word_counts.black / word_counts['all'])
+                .sort_values(by='all')[['p_blue','p_green','p_red','p_white','p_black']]
+                .tail(20)
+                .plot.barh(stacked=True, color= ['blue','green','red','#f8c8aa','black'], figsize= (10,10)))
+
+    plt.title('Proportion of color for the 20 most common words')
+   
+
+   
