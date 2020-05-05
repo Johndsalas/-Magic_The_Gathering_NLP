@@ -62,7 +62,7 @@ def word_count(df):
                         p_black=word_counts.black / word_counts['all'])
                 .sort_values(by='all')[['p_blue','p_green','p_red','p_white','p_black']]
                 .tail(20)
-                .plot.barh(stacked=True, color= ['blue','green','red','#f8c8aa','black'], figsize= (10,10)))
+                .plot.barh(stacked=True, color= ['#cbd7fb','#96aba8','#d26e4a','#f8c8aa','#e9e9e9'], figsize= (10,10)))
 
     plt.title('Proportion of color for the 20 most common words')
    
