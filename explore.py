@@ -24,8 +24,6 @@ def word_soup(text):
     '''
  
     words = re.sub(r'[^\w\s]', '', text).split()
-
-    print(words)
     
     return [word for word in words]
 
@@ -42,8 +40,6 @@ def word_count(df):
     white_words = word_soup(' '.join(df[df.color == 'White'].text))
     black_words = word_soup(' '.join(df[df.color == 'Black'].text))
 
-    print(all_words)
-
     # create a pandas series with each word an
     all_freq = pd.Series(all_words).value_counts()
     blue_freq = pd.Series(blue_words).value_counts()
@@ -51,8 +47,6 @@ def word_count(df):
     red_freq = pd.Series(red_words).value_counts()
     white_freq = pd.Series(white_words).value_counts()
     black_freq = pd.Series(black_words).value_counts()
-
-    print(all_freq)
 
     # combine value counts into one pandas data frame
     word_counts = (pd.concat([all_freq,blue_freq,green_freq,red_freq,white_freq,black_freq], axis=1, sort=True)
@@ -71,6 +65,4 @@ def word_count(df):
                 .plot.barh(stacked=True, color= ['#cbd7fb','#96aba8','#d26e4a','#f8c8aa','#e9e9e9'], figsize= (12,12)))
 
     plt.title('Proportion of color for the 20 most common words')
-   
-    return all_words
    
