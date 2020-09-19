@@ -22,8 +22,11 @@ def word_soup(text):
     '''
     Turn text into list of words in text
     '''
- 
+    print(text)
+
     words = re.sub(r'[^\w\s]', '', text).split()
+
+    print(words)
     
     return [word for word in words]
 
@@ -54,15 +57,15 @@ def word_count(df):
                 .fillna(0)
                 .apply(lambda s: s.astype(int)))
 
-    # display ratio of top 20 most frequent words by color
-    (word_counts.assign(p_blue=word_counts.blue / word_counts['all'],
-                        p_green=word_counts.green / word_counts['all'],
-                        p_red=word_counts.red / word_counts['all'],
-                        p_white=word_counts.white / word_counts['all'],
-                        p_black=word_counts.black / word_counts['all'])
-                .sort_values(by='all')[['p_blue','p_green','p_red','p_white','p_black']]
-                .tail(20)
-                .plot.barh(stacked=True, color= ['#cbd7fb','#96aba8','#d26e4a','#f8c8aa','#e9e9e9'], figsize= (12,12)))
+    # # display ratio of top 20 most frequent words by color
+    # (word_counts.assign(p_blue=word_counts.blue / word_counts['all'],
+    #                     p_green=word_counts.green / word_counts['all'],
+    #                     p_red=word_counts.red / word_counts['all'],
+    #                     p_white=word_counts.white / word_counts['all'],
+    #                     p_black=word_counts.black / word_counts['all'])
+    #             .sort_values(by='all')[['p_blue','p_green','p_red','p_white','p_black']]
+    #             .tail(20)
+    #             .plot.barh(stacked=True, color= ['#cbd7fb','#96aba8','#d26e4a','#f8c8aa','#e9e9e9'], figsize= (12,12)))
 
-    plt.title('Proportion of color for the 20 most common words')
+    # plt.title('Proportion of color for the 20 most common words')
    
